@@ -2,6 +2,7 @@ package sooper.productos;
 
 import sooper.IContenedor;
 import sooper.IProducto;
+import sooper.contenedores.Contenedor;
 
 public abstract class Producto implements IProducto {
 	
@@ -49,6 +50,11 @@ public abstract class Producto implements IProducto {
 	public boolean tengoEspacio(IContenedor contenedor) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	@Override
+	public void meter(Contenedor contenedor) {
+		//TODO
 	}
 
 }

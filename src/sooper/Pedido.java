@@ -35,9 +35,14 @@ public class Pedido implements IPedido {
 		
 	}
 
+	//Recorrer todos los contenedores hasta encontrar un contenedor que le queda un producto. Si el producto es compatible o no, devolverá un booleano. Si no encuentra, devolverá null.
 	@Override
 	public IContenedor addProducto(IProducto producto) {
-		// TODO Auto-generated method stub
+		for (IContenedor contenedor : contenedores) {
+			if (contenedor.meter(producto)) {
+				return contenedor;
+			}
+		}
 		return null;
 	}
 	

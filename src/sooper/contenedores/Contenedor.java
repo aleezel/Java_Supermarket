@@ -57,10 +57,27 @@ public abstract class Contenedor implements IContenedor {
 		return null;
 	}*/
 
+	//Evaluar las los requerimientos necesarios.
+	//Si al final todos son true, añadirá el producto al contenedor.
 	@Override
 	public boolean meter(IProducto producto) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resistenciaOk = resiste(producto);
+		//Vamos a preguntarle al producto si tiene espacio en el contenedor. Por qué se tiene que preguntar al producto? Porque al final, cada producto se debe evaluar a sí mismo cada vez que deba ser añadido.
+		boolean volumenOk = producto.tengoEspacio(this);
+		
+		//Para saber si es compatible, se necesita hacer un bucle
+		boolean compatibilidadOk = true;
+		for (IProducto p : productos) {
+			boolean compatibleOk = producto.esCompatible(p);
+			compatibilidadOk &= compatibleOk;
+		}
+		
+		boolean acepta = resistenciaOk && volumenOk && compatibilidadOk;
+		if (acepta) {
+			productos.add(producto);
+			producto.meter(this);
+		}
+		return acepta;
 	}
 
 	@Override
