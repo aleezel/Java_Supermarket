@@ -2,17 +2,21 @@ package sooper.productos;
 import sooper.IProducto;
 import sooper.enums.Categoria;
 
-public class Alimentacion extends Producto {
+public abstract class Alimentacion extends Producto {
+	
 
-	public Alimentacion(String referencia, int peso, int volumen) {
-		super(referencia, peso, volumen);
+	private double precio;
+
+	public Alimentacion(String referencia, double precio, int peso, int volumen) {
+		super(referencia, precio, peso, volumen);
+		this.precio = precio;
 	}
-
+	
 	@Override
-	public int getPrecio() {
-		// TODO Auto-generated method stub
-		return 0;
+	public double getPrecio() {
+		return precio;
 	}
+	
 
 	@Override
 	public Categoria getCategoria() {
@@ -21,8 +25,9 @@ public class Alimentacion extends Producto {
 
 	@Override
 	public boolean esCompatible(IProducto p) {
-		// TODO Auto-generated method stub
-		return false;
+		return Categoria.ALIMENTACION.equals(p.getCategoria());
 	}
+
+
 
 }

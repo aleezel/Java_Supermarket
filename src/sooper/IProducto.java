@@ -11,18 +11,20 @@ public interface IProducto {
 	
 	int getVolumen();
 	
-	int getPrecio();
+	double getPrecio();
 	
 	Categoria getCategoria();
 	
 	//Métodos
 	
 	//Para el producto es necesario comparar las categorías para saber si pueden ser guardados en la misma bolsa
-	boolean esCompatible(IProducto p);
+	boolean esCompatible(IProducto p); 
 	
 	//Evalua si tiene espacio el contenedor
 	boolean tengoEspacio(IContenedor contenedor);
 
 	void meter(Contenedor contenedor);
+
+	
 
 }

@@ -4,9 +4,10 @@ import sooper.enums.Categoria;
 
 public class Higiene extends Producto {
 	
+	
 	//Constructor
-	public Higiene(String referencia, int peso, int volumen) {
-		super(referencia, peso, volumen);
+	public Higiene(String referencia, double precio, int peso, int volumen) {
+		super(referencia, precio, peso, volumen);
 	}
 	
 	@Override
@@ -14,16 +15,12 @@ public class Higiene extends Producto {
 		return Categoria.HIGIENE;
 	}
 	
-	@Override
-	public int getPrecio() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
+	
 	
 	@Override
 	public boolean esCompatible(IProducto p) {
-		//TODO
-		return false;
+		return !Categoria.ALIMENTACION.equals(p.getCategoria());
 	}
 
 

@@ -16,9 +16,10 @@ public abstract class Contenedor implements IContenedor {
 	private int resistencia;
 	private Set<IProducto> productos;
 
-	public Contenedor(String referencia, int alto) {
+	public Contenedor(String referencia, int alto, int resistencia) {
 		this.referencia = referencia;
 		this.alto = alto;
+		this.resistencia = resistencia;
 		productos = new HashSet<IProducto>();
 	}
 
@@ -36,8 +37,16 @@ public abstract class Contenedor implements IContenedor {
 
 	@Override
 	public int volumenDisponible() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getVolumen() - volumenOcupado();
+	}
+	
+	//Para saber el volumen ocupado, tiene que iterar entre los productos ya añadidos y sumar sus volúmenes
+	private int volumenOcupado() {
+		int resultado = 0;
+		for (IProducto p : productos) {
+			resultado += p.getVolumen();
+		}
+		return resultado;
 	}
 
 	@Override
@@ -53,20 +62,17 @@ public abstract class Contenedor implements IContenedor {
 	//Las clases hijas definirán el tipo de producto
 	/*@Override
 	public String getTipo() {
-		// TODO Auto-generated method stub
-		return null;
 	}*/
 
+	
 	//Evaluar las los requerimientos necesarios.
 	//Si al final todos son true, añadirá el producto al contenedor.
 	@Override
 	public boolean meter(IProducto producto) {
 		boolean resistenciaOk = resiste(producto);
-		//Vamos a preguntarle al producto si tiene espacio en el contenedor. Por qué se tiene que preguntar al producto? Porque al final, cada producto se debe evaluar a sí mismo cada vez que deba ser añadido.
-		boolean volumenOk = producto.tengoEspacio(this);
+		boolean volumenOk = producto.tengoEspacio(this);//Vamos a preguntarle al producto si tiene espacio en el contenedor. Por qué se tiene que preguntar al producto? Porque al final, cada producto se debe evaluar a sí mismo cada vez que deba ser añadido.
+		boolean compatibilidadOk = true; //Para saber si es compatible, se necesita hacer un bucle
 		
-		//Para saber si es compatible, se necesita hacer un bucle
-		boolean compatibilidadOk = true;
 		for (IProducto p : productos) {
 			boolean compatibleOk = producto.esCompatible(p);
 			compatibilidadOk &= compatibleOk;
@@ -80,11 +86,12 @@ public abstract class Contenedor implements IContenedor {
 		return acepta;
 	}
 
+	//El contenedor resistirá si su resistencia es mayor a la del peso del producto
 	@Override
 	public boolean resiste(IProducto producto) {
-		// TODO Auto-generated method stub
-		return false;
+		return resistencia > producto.getPeso();
 	}
+	
 	
 	
 	@Override

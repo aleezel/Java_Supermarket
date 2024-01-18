@@ -21,7 +21,16 @@ public class Pedido implements IPedido {
 	
 	@Override
 	public Set<IProducto> getProductos() {
-		return null;
+		Set<IProducto> productosPedido = null;
+		for (IContenedor c: contenedores) {
+			if (productosPedido == null) {
+				productosPedido = c.getProductos();
+			}
+			else {
+				productosPedido.addAll(c.getProductos());
+			}
+		}
+		return productosPedido;
 	}
 	
 	@Override

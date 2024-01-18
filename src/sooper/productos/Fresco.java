@@ -1,9 +1,21 @@
 package sooper.productos;
 
-public class Fresco extends Alimentacion {
+import java.time.LocalDate;
+
+import sooper.Caducable;
+
+public class Fresco extends Alimentacion implements Caducable {
 	
-	public Fresco (String referencia, int peso, int volumen) {
-		super(referencia, peso, volumen);
+	private LocalDate caducidad;
+
+	public Fresco (String referencia, double precio, int peso, int volumen, LocalDate caducidad) {
+		super(referencia, precio, peso, volumen);
+		this.caducidad = caducidad;
+	}
+	
+	@Override
+	public boolean estaCaducado() {
+		return caducidad.isBefore(LocalDate.now());
 	}
 
 }

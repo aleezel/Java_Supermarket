@@ -4,9 +4,11 @@ import sooper.enums.Categoria;
 
 public class Mascotas extends Producto {
 	
+
+
 	//Constructor
-	public Mascotas (String referencia, int peso, int volumen) {
-		super(referencia, peso, volumen);
+	public Mascotas (String referencia, double precio, int peso, int volumen) {
+		super(referencia, precio, peso, volumen);
 	}
 	
 	@Override
@@ -14,15 +16,11 @@ public class Mascotas extends Producto {
 		return Categoria.MASCOTAS;
 	}
 	
-	@Override
-	public int getPrecio() {
-		return 0;
-	}
 	
+
 	@Override
 	public boolean esCompatible(IProducto p) {
-		//TODO
-		return false;
+		return !Categoria.FARMACIA.equals(p.getCategoria());
 	}
 
 }
